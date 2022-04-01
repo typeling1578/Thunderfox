@@ -243,6 +243,12 @@ function onAlertLoad() {
   if (gAlertListener) {
     gAlertListener.observe(null, "alertshow", gAlertCookie);
   }
+
+  if (Services.prefs.getBoolPref("alerts.playSound")) {
+    let audio = new Audio();
+    audio.src = "chrome://global/content/alerts/alert.ogg";
+    audio.play();
+  }
 }
 
 function moveWindowToReplace(aReplacedAlert) {
