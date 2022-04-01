@@ -72,3 +72,5 @@ pref("browser.preferences.moreFromMozilla", false);
 pref("browser.urlbar.trimURLs", false);
 
 pref("gfx.webrender.all", true);
+
+pref("alerts.playSound", true);
