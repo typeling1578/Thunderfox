@@ -225,14 +225,14 @@ const nsCString& CookieInfo::RawHost() const {
  *****************************************************************************/
 
 const char* PERMITTED_SCHEMES[] = {"http", "https", "ws",   "wss",
-                                   "file", "ftp",   "data", nullptr};
+                                   "file", "ftp",   "data", "about", nullptr};
 
 // Known schemes that are followed by "://" instead of ":".
 const char* HOST_LOCATOR_SCHEMES[] = {
     "http",   "https",    "ws",  "wss",      "file",    "ftp",  "moz-extension",
     "chrome", "resource", "moz", "moz-icon", "moz-gio", nullptr};
 
-const char* WILDCARD_SCHEMES[] = {"http", "https", "ws", "wss", nullptr};
+const char* WILDCARD_SCHEMES[] = {"http", "https", "ws", "wss", "about", nullptr};
 
 /* static */
 already_AddRefed<MatchPattern> MatchPattern::Constructor(
