@@ -3,7 +3,9 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-MOZ_APP_VENDOR=Mozilla
+MOZ_APP_VENDOR=typeling1578
+MOZ_APP_NAME=thunderfox
+MOZ_APP_UA_NAME=Firefox
 
 if test "$OS_ARCH" = "WINNT"; then
   if ! test "$HAVE_64BIT_BUILD"; then
