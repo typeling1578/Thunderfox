@@ -5,6 +5,7 @@
 
 MOZ_APP_VENDOR=typeling1578
 MOZ_APP_NAME=thunderfox
+MOZ_DISTRIBUTION_ID=org.thunderfox
 MOZ_APP_UA_NAME=Firefox
 
 if test "$OS_ARCH" = "WINNT"; then
@@ -43,3 +44,7 @@ MOZ_PROFILE_MIGRATOR=1
 
 # Include the DevTools client, not just the server (which is the default)
 MOZ_DEVTOOLS=all
+
+# Thunderfox
+MOZ_DATA_REPORTING=
+MOZ_TELEMETRY_REPORTING=
