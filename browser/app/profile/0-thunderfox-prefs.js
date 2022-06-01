@@ -54,6 +54,7 @@ pref("media.peerconnection.ice.default_address_only", true);
 
 pref("svg.context-properties.content.enabled", true);
 pref("layout.css.backdrop-filter.enabled", true);
+pref("layout.css.color-mix.enabled", true);
 
 pref("browser.startup.page", 3);
 pref("browser.tabs.closeWindowWithLastTab", false);
@@ -65,6 +66,8 @@ pref("browser.urlbar.update2.engineAliasRefresh", true);
 pref("browser.search.separatePrivateDefault.ui.enabled", true);
 pref("xpinstall.signatures.required", false);
 pref("extensions.webextensions.restrictedDomains", "");
+pref("xpinstall.userActivation.required", false);
+pref("extensions.install_origins.enabled", false);
 
 pref("font.name-list.emoji", "Twemoji Mozilla");
 pref("browser.preferences.moreFromMozilla", false);
