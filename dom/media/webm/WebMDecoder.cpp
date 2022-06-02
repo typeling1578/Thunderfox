@@ -25,9 +25,12 @@ namespace mozilla {
 nsTArray<UniquePtr<TrackInfo>> WebMDecoder::GetTracksInfo(
     const MediaContainerType& aType, MediaResult& aError) {
   nsTArray<UniquePtr<TrackInfo>> tracks;
-  const bool isVideo = aType.Type() == MEDIAMIMETYPE("video/webm");
+  const bool isVideoMatroska = (aType.Type() == MEDIAMIMETYPE("video/x-matroska"));
+  const bool isAudioMatroska = (aType.Type() == MEDIAMIMETYPE("audio/x-matroska"));
+  const bool isVideo = (aType.Type() == MEDIAMIMETYPE("video/webm")) || isVideoMatroska;
+  const bool isAudio = (aType.Type() == MEDIAMIMETYPE("audio/webm")) || isAudioMatroska;
 
-  if (aType.Type() != MEDIAMIMETYPE("audio/webm") && !isVideo) {
+  if (!isAudio && !isVideo) {
     aError = MediaResult(
         NS_ERROR_DOM_MEDIA_FATAL_ERR,
         RESULT_DETAIL("Invalid type:%s", aType.Type().AsString().get()));
@@ -73,6 +76,13 @@ nsTArray<UniquePtr<TrackInfo>> WebMDecoder::GetTracksInfo(
       continue;
     }
 #endif
+    // Allow H.264 codec if the content is a matroska video container
+    if(isVideoMatroska && IsH264CodecString(codec)) {
+      continue;
+    }
+    if((isVideoMatroska || isAudioMatroska) && IsAACCodecString(codec)) {
+      continue;
+    }
     // Unknown codec
     aError = MediaResult(
         NS_ERROR_DOM_MEDIA_FATAL_ERR,
