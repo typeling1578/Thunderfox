@@ -169,7 +169,8 @@ void MediaSource::IsTypeSupported(const nsAString& aType,
 
     return;
   }
-  if (mimeType == MEDIAMIMETYPE("video/webm")) {
+  if (mimeType == MEDIAMIMETYPE("video/webm") ||
+      mimeType == MEDIAMIMETYPE("video/x-matroska")) {
     if (!StaticPrefs::media_mediasource_webm_enabled()) {
       // Don't leak information about the fact that it's pref-disabled; just act
       // like we can't play it.  Or should this throw "Unknown type"?
@@ -183,7 +184,8 @@ void MediaSource::IsTypeSupported(const nsAString& aType,
     }
     return;
   }
-  if (mimeType == MEDIAMIMETYPE("audio/webm")) {
+  if (mimeType == MEDIAMIMETYPE("audio/webm") ||
+      mimeType == MEDIAMIMETYPE("audio/x-matroska")) {
     if (!(StaticPrefs::media_mediasource_webm_enabled() ||
           StaticPrefs::media_mediasource_webm_audio_enabled())) {
       // Don't leak information about the fact that it's pref-disabled; just act
