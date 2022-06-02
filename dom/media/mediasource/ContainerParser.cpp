@@ -738,7 +738,9 @@ class ADTSContainerParser
 UniquePtr<ContainerParser> ContainerParser::CreateForMIMEType(
     const MediaContainerType& aType) {
   if (aType.Type() == MEDIAMIMETYPE(VIDEO_WEBM) ||
-      aType.Type() == MEDIAMIMETYPE(AUDIO_WEBM)) {
+      aType.Type() == MEDIAMIMETYPE(AUDIO_WEBM) ||
+      aType.Type() == MEDIAMIMETYPE(VIDEO_MATROSKA) ||
+      aType.Type() == MEDIAMIMETYPE(AUDIO_MATROSKA)) {
     return MakeUnique<WebMContainerParser>(aType);
   }
 
