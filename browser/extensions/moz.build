@@ -12,4 +12,5 @@ DIRS += [
     "report-site-issue",
     "pictureinpicture",
     "search-detection",
+    "system-addon",
 ]
