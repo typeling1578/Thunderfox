@@ -1,0 +1,15 @@
+[
+  {
+    "namespace": "browserInfo",
+    "description": "get display version",
+    "functions": [
+      {
+        "name": "getDisplayVersion",
+        "type": "function",
+        "description": "Get a preference's value",
+        "parameters": [],
+        "async": true
+      }
+    ]
+  }
+]
