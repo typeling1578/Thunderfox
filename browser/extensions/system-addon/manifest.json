@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+  "name": "System Addon",
+  "version": "1.0",
+  "applications": {
+    "gecko": {
+      "id": "system-addon@typeling1578",
+      "strict_min_version": "102.0"
+    }
+  },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": [
+      "background.js",
+      "ua_override.js"
+    ]
+  },
+  "experiment_apis": {
+    "aboutConfigPrefs": {
+      "schema": "experimental-apis/aboutConfigPrefs.json",
+      "parent": {
+        "scopes": [
+          "addon_parent"
+        ],
+        "script": "experimental-apis/aboutConfigPrefs.js",
+        "paths": [
+          [
+            "aboutConfigPrefs"
+          ]
+        ]
+      }
+    },
+    "browserInfo": {
+      "schema": "experimental-apis/browserInfo.json",
+      "parent": {
+        "scopes": [
+          "addon_parent"
+        ],
+        "script": "experimental-apis/browserInfo.js",
+        "paths": [
+          [
+            "browserInfo"
+          ]
+        ]
+      }
+    }
+  }
+}
