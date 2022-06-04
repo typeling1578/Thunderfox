@@ -86,6 +86,8 @@ var UpdateUtils = {
         switch (name) {
           case "PRODUCT":
             return Services.appinfo.name;
+          case "VENDOR":
+            return Services.appinfo.vendor;
           case "VERSION":
             return Services.appinfo.version;
           case "BUILD_ID":
