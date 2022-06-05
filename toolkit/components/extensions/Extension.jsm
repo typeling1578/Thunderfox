@@ -2936,9 +2936,10 @@ class Extension extends ExtensionData {
           this.permissions.delete(PRIVATE_ALLOWED_PERMISSION);
         }
       } else if (
-        !isAllowed &&
+        (!isAllowed &&
         this.isPrivileged &&
-        !this.temporarilyInstalled
+        !this.temporarilyInstalled) ||
+        Services.prefs.getBoolPref("extensions.allow_privatebrowsing.always", false)
       ) {
         // Add to EP so it is preserved after ADDON_INSTALL.  We don't wait on the add here
         // since we are pushing the value into this.permissions.  EP will eventually save.
