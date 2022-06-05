@@ -1293,7 +1293,16 @@ class ExtensionData {
         });
       }
 
-      if (this.canUseExperiment(manifest)) {
+      let allow_experimant = false;
+      if (this.id && manifest.experiment_apis) {
+        let pref = Services.prefs.getStringPref("extensions.experiments.allow_addons", "");
+        let addon_ids = pref.replaceAll(" ", "").split(",");
+        if (addon_ids.includes(this.id)) {
+          allow_experimant = true;
+        }
+      }
+
+      if (this.canUseExperiment(manifest) || allow_experimant) {
         let parentModules = {};
         let childModules = {};
 
