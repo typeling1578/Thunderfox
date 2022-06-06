@@ -2876,6 +2876,21 @@ class AddonDetails extends HTMLElement {
       pbRow.querySelector(`[value="${isAllowed ? 1 : 0}"]`).checked = true;
     }
 
+    // experiment-apis
+    if (addon.type == "extension") {
+      let experimentApis = this.querySelector(".addon-detail-row-experiment-apis");
+      let experimentApisHelp = this.querySelector('[data-l10n-id="addon-detail-experiment-apis-help"]');
+      experimentApis.hidden = false;
+      experimentApisHelp.hidden = false;
+      let addon_ids = Services.prefs.getStringPref("extensions.experiments.allow_addons", "").replaceAll(" ", "").split(",");
+      addon_ids = addon_ids.filter(id => id != "");
+      if (addon_ids.includes(addon.id)) {
+        experimentApis.querySelector('[value="1"]').checked = true;
+      } else {
+        experimentApis.querySelector('[value="0"]').checked = true;
+      }
+    }
+
     // Author.
     let creatorRow = this.querySelector(".addon-detail-row-author");
     if (addon.creator) {
@@ -3265,6 +3280,36 @@ class AddonCard extends HTMLElement {
           // Update the card if the add-on isn't active.
           this.update();
         }
+      } else if (name == "experiment-apis") {
+        (async() => {
+          let addon_ids = Services.prefs.getStringPref("extensions.experiments.allow_addons", "").replaceAll(" ", "").split(",");
+          addon_ids = addon_ids.filter(id => id != "");
+          if (e.target.value == "1") {
+            let title = (await document.l10n.formatMessages([{id: "experiment-apis-confirm-title"}]))[0].value;
+            let msg = (await document.l10n.formatMessages([{id: "experiment-apis-confirm-message"}]))[0].value;
+            let result = Services.prompt.confirm(window, title, msg);
+            if (result) {
+              addon_ids.push(addon.id);
+              Services.prefs.setStringPref("extensions.experiments.allow_addons", addon_ids.join(","));
+            } else {
+              let experimentApis = this.querySelector(".addon-detail-row-experiment-apis");
+              experimentApis.querySelector('[value="0"]').checked = true;
+            }
+          } else {
+            addon_ids = addon_ids.filter(id => id != addon.id);
+            Services.prefs.setStringPref("extensions.experiments.allow_addons", addon_ids.join(","));
+          }
+          // Reload the extension if it is already enabled. This ensures any
+          // change on the private browsing permission is properly handled.
+          if (addon.isActive) {
+            this.reloading = true;
+            // Reloading will trigger an enable and update the card.
+            addon.reload();
+          } else {
+            // Update the card if the add-on isn't active.
+            this.update();
+          }
+        })()
       }
     } else if (e.type == "mousedown") {
       // Open panel on mousedown when the mouse is used.
