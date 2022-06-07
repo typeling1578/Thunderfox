@@ -125,6 +125,9 @@ nsURLFormatterService.prototype = {
     XPCOMABI() {
       return this.ABI;
     },
+    ARCH() {
+      return this.ABI.substring(0, this.ABI.indexOf("-"));
+    },
     BUILD_TARGET() {
       return Services.appinfo.OS + "_" + this.ABI;
     },
