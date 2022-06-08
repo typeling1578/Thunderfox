@@ -685,7 +685,7 @@ Function createInstall
   ${EndIf}
 
   ${GetLocalAppDataFolder} $0
-  ${If} ${FileExists} "$0\Mozilla\Thunderfox"
+  ${If} ${FileExists} "$0\typeling1578\Thunderfox"
     StrCpy $ExistingProfile "1"
   ${Else}
     StrCpy $ExistingProfile "0"

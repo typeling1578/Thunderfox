@@ -92,10 +92,10 @@
     ; If it already exists, just delete the appdata one.
     ; It's possible this was for a different install, but it's impossible to
     ; know for sure, so we may as well just get rid of it.
-    Delete /REBOOTOK "$0\Mozilla\Firefox\postSigningData"
+    Delete /REBOOTOK "$0\typeling1578\Thunderfox\postSigningData"
   ${Else}
-    ${If} ${FileExists} "$0\Mozilla\Firefox\postSigningData"
-      Rename "$0\Mozilla\Firefox\postSigningData" "$INSTDIR\postSigningData"
+    ${If} ${FileExists} "$0\typeling1578\Thunderfox\postSigningData"
+      Rename "$0\typeling1578\Thunderfox\postSigningData" "$INSTDIR\postSigningData"
     ${EndIf}
   ${EndIf}
 
