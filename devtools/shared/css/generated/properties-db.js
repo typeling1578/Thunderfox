@@ -3562,6 +3562,32 @@ exports.CSS_PROPERTIES = {
       "unset"
     ]
   },
+  "backdrop-filter": {
+    "isInherited": false,
+    "subproperties": [
+      "backdrop-filter"
+    ],
+    "supports": [],
+    "values": [
+      "blur",
+      "brightness",
+      "contrast",
+      "drop-shadow",
+      "grayscale",
+      "hue-rotate",
+      "inherit",
+      "initial",
+      "invert",
+      "none",
+      "opacity",
+      "revert",
+      "revert-layer",
+      "saturate",
+      "sepia",
+      "unset",
+      "url"
+    ]
+  },
   "backface-visibility": {
     "isInherited": false,
     "subproperties": [
