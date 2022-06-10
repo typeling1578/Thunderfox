@@ -3,10 +3,10 @@
 <assemblyIdentity
         version="1.0.0.0"
         processorArchitecture="*"
-        name="Firefox"
+        name="Thunderfox"
         type="win32"
 />
-<description>Firefox</description>
+<description>Thunderfox</description>
 <dependency>
         <dependentAssembly>
                 <assemblyIdentity

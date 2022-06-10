@@ -242,7 +242,7 @@ Function un.UninstallServiceIfNotUsed
   ; Figure out the number of subkeys
   StrCpy $0 0
   ${Do}
-    EnumRegKey $1 HKLM "Software\Mozilla\MaintenanceService" $0
+    EnumRegKey $1 HKLM "Software\typeling1578\MaintenanceService" $0
     ${If} "$1" == ""
       ${ExitDo}
     ${EndIf}
@@ -429,8 +429,8 @@ Section "Uninstall"
   ${EndIf}
 
   SetShellVarContext current  ; Set SHCTX to HKCU
-  ${un.RegCleanMain} "Software\Mozilla"
-  ${un.RegCleanPrefs} "Software\Mozilla\${AppName}"
+  ${un.RegCleanMain} "Software\typeling1578"
+  ${un.RegCleanPrefs} "Software\typeling1578\${AppName}"
   ${un.RegCleanUninstall}
   ${un.DeleteShortcuts}
 
@@ -452,52 +452,52 @@ Section "Uninstall"
   ${EndIf}
 
   ; Remove the updates directory
-  ${un.CleanUpdateDirectories} "Mozilla\Firefox" "Mozilla\updates"
+  ${un.CleanUpdateDirectories} "typeling1578\Firefox" "typeling1578\updates"
 
   ; Remove any app model id's stored in the registry for this install path
-  DeleteRegValue HKCU "Software\Mozilla\${AppName}\TaskBarIDs" "$INSTDIR"
-  DeleteRegValue HKLM "Software\Mozilla\${AppName}\TaskBarIDs" "$INSTDIR"
+  DeleteRegValue HKCU "Software\typeling1578\${AppName}\TaskBarIDs" "$INSTDIR"
+  DeleteRegValue HKLM "Software\typeling1578\${AppName}\TaskBarIDs" "$INSTDIR"
 
   ClearErrors
-  WriteRegStr HKLM "Software\Mozilla" "${BrandShortName}InstallerTest" "Write Test"
+  WriteRegStr HKLM "Software\typeling1578" "${BrandShortName}InstallerTest" "Write Test"
   ${If} ${Errors}
     StrCpy $TmpVal "HKCU" ; used primarily for logging
   ${Else}
     SetShellVarContext all  ; Set SHCTX to HKLM
-    DeleteRegValue HKLM "Software\Mozilla" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\typeling1578" "${BrandShortName}InstallerTest"
     StrCpy $TmpVal "HKLM" ; used primarily for logging
-    ${un.RegCleanMain} "Software\Mozilla"
+    ${un.RegCleanMain} "Software\typeling1578"
     ${un.RegCleanUninstall}
     ${un.DeleteShortcuts}
     ${un.SetAppLSPCategories}
   ${EndIf}
 
-  ${un.RegCleanAppHandler} "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanAppHandler} "FirefoxPDF-$AppUserModelID"
-  ${un.RegCleanAppHandler} "FirefoxURL-$AppUserModelID"
+  ${un.RegCleanAppHandler} "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanAppHandler} "ThunderfoxPDF-$AppUserModelID"
+  ${un.RegCleanAppHandler} "ThunderfoxURL-$AppUserModelID"
   ${un.RegCleanProtocolHandler} "http"
   ${un.RegCleanProtocolHandler} "https"
   ${un.RegCleanProtocolHandler} "mailto"
-  ${un.RegCleanFileHandler}  ".htm"   "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".html"  "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".shtml" "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".xht"   "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".xhtml" "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".oga"   "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".ogg"   "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".ogv"   "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".webm"  "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".svg"   "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".webp"  "FirefoxHTML-$AppUserModelID"
-  ${un.RegCleanFileHandler}  ".avif"  "FirefoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".htm"   "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".html"  "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".shtml" "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".xht"   "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".xhtml" "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".oga"   "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".ogg"   "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".ogv"   "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".webm"  "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".svg"   "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".webp"  "ThunderfoxHTML-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".avif"  "ThunderfoxHTML-$AppUserModelID"
 
-  ${un.RegCleanFileHandler}  ".pdf"   "FirefoxPDF-$AppUserModelID"
+  ${un.RegCleanFileHandler}  ".pdf"   "ThunderfoxPDF-$AppUserModelID"
 
   SetShellVarContext all  ; Set SHCTX to HKLM
-  ${un.GetSecondInstallPath} "Software\Mozilla" $R9
+  ${un.GetSecondInstallPath} "Software\typeling1578" $R9
   ${If} $R9 == "false"
     SetShellVarContext current  ; Set SHCTX to HKCU
-    ${un.GetSecondInstallPath} "Software\Mozilla" $R9
+    ${un.GetSecondInstallPath} "Software\typeling1578" $R9
   ${EndIf}
 
   DeleteRegKey HKLM "Software\Clients\StartMenuInternet\${AppRegName}-$AppUserModelID"
@@ -508,22 +508,22 @@ Section "Uninstall"
 
   ; Remove old protocol handler and StartMenuInternet keys without install path
   ; hashes, but only if they're for this installation.  We've never supported
-  ; bare FirefoxPDF.
-  ReadRegStr $0 HKLM "Software\Classes\FirefoxHTML\DefaultIcon" ""
+  ; bare ThunderfoxPDF.
+  ReadRegStr $0 HKLM "Software\Classes\ThunderfoxHTML\DefaultIcon" ""
   StrCpy $0 $0 -2
   ${If} $0 == "$INSTDIR\${FileMainEXE}"
-    DeleteRegKey HKLM "Software\Classes\FirefoxHTML"
-    DeleteRegKey HKLM "Software\Classes\FirefoxURL"
+    DeleteRegKey HKLM "Software\Classes\ThunderfoxHTML"
+    DeleteRegKey HKLM "Software\Classes\ThunderfoxURL"
     ${StrFilter} "${FileMainEXE}" "+" "" "" $R9
     DeleteRegKey HKLM "Software\Clients\StartMenuInternet\$R9"
     DeleteRegValue HKLM "Software\RegisteredApplications" "$R9"
     DeleteRegValue HKLM "Software\RegisteredApplications" "${AppRegName}"
   ${EndIf}
-  ReadRegStr $0 HKCU "Software\Classes\FirefoxHTML\DefaultIcon" ""
+  ReadRegStr $0 HKCU "Software\Classes\ThunderfoxHTML\DefaultIcon" ""
   StrCpy $0 $0 -2
   ${If} $0 == "$INSTDIR\${FileMainEXE}"
-    DeleteRegKey HKCU "Software\Classes\FirefoxHTML"
-    DeleteRegKey HKCU "Software\Classes\FirefoxURL"
+    DeleteRegKey HKCU "Software\Classes\ThunderfoxHTML"
+    DeleteRegKey HKCU "Software\Classes\ThunderfoxURL"
     ${StrFilter} "${FileMainEXE}" "+" "" "" $R9
     DeleteRegKey HKCU "Software\Clients\StartMenuInternet\$R9"
     DeleteRegValue HKCU "Software\RegisteredApplications" "$R9"
@@ -540,7 +540,7 @@ Section "Uninstall"
     StrCpy $0 "Software\Microsoft\MediaPlayer\ShimInclusionList\plugin-container.exe"
     DeleteRegKey HKLM "$0"
     DeleteRegKey HKCU "$0"
-    StrCpy $0 "Software\Classes\MIME\Database\Content Type\application/x-xpinstall;app=firefox"
+    StrCpy $0 "Software\Classes\MIME\Database\Content Type\application/x-xpinstall;app=thunderfox"
     DeleteRegKey HKLM "$0"
     DeleteRegKey HKCU "$0"
   ${Else}
@@ -676,7 +676,7 @@ Section "Uninstall"
   ; subsequently deleted after checking. If the value is found during startup
   ; the browser will offer to Reset Firefox. We use the UpdateChannel to match
   ; uninstalls of Firefox-release with reinstalls of Firefox-release, for example.
-  WriteRegStr HKCU "Software\Mozilla\Firefox" "Uninstalled-${UpdateChannel}" "True"
+  WriteRegStr HKCU "Software\typeling1578\Thunderfox" "Uninstalled-${UpdateChannel}" "True"
 
 !ifdef MOZ_MAINTENANCE_SERVICE
   ; Get the path the allowed cert is at and remove it
@@ -1004,7 +1004,7 @@ Function un.onInit
   ${un.UninstallUnOnInitCommon}
 
   ; setup the application model id registration value
-  ${un.InitHashAppModelId} "$INSTDIR" "Software\Mozilla\${AppName}\TaskBarIDs"
+  ${un.InitHashAppModelId} "$INSTDIR" "Software\typeling1578\${AppName}\TaskBarIDs"
 
   ; Find a default profile for this install.
   SetShellVarContext current
