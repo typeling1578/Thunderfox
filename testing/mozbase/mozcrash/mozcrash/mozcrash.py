@@ -806,14 +806,14 @@ def cleanup_pending_crash_reports():
     """
     if mozinfo.isWin:
         location = os.path.expanduser(
-            "~\\AppData\\Roaming\\Mozilla\\Firefox\\Crash Reports"
+            "~\\AppData\\Roaming\\typeling1578\\Thunderfox\\Crash Reports"
         )
     elif mozinfo.isMac:
         location = os.path.expanduser(
-            "~/Library/Application Support/firefox/Crash Reports"
+            "~/Library/Application Support/thunderfox/Crash Reports"
         )
     else:
-        location = os.path.expanduser("~/.mozilla/firefox/Crash Reports")
+        location = os.path.expanduser("~/.typeling1578/thunderfox/Crash Reports")
     logger = get_logger()
     if os.path.exists(location):
         try:
