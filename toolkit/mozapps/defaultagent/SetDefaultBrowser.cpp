@@ -202,19 +202,19 @@ static bool VerifyUserDefault(const wchar_t* aExt, const wchar_t* aProgID) {
 
 HRESULT SetDefaultBrowserUserChoice(
     const wchar_t* aAumi, const wchar_t* const* aExtraFileExtensions) {
-  auto urlProgID = FormatProgID(L"FirefoxURL", aAumi);
+  auto urlProgID = FormatProgID(L"ThunderfoxURL", aAumi);
   if (!CheckProgIDExists(urlProgID.get())) {
     LOG_ERROR_MESSAGE(L"ProgID %s not found", urlProgID.get());
     return MOZ_E_NO_PROGID;
   }
 
-  auto htmlProgID = FormatProgID(L"FirefoxHTML", aAumi);
+  auto htmlProgID = FormatProgID(L"ThunderfoxHTML", aAumi);
   if (!CheckProgIDExists(htmlProgID.get())) {
     LOG_ERROR_MESSAGE(L"ProgID %s not found", htmlProgID.get());
     return MOZ_E_NO_PROGID;
   }
 
-  auto pdfProgID = FormatProgID(L"FirefoxPDF", aAumi);
+  auto pdfProgID = FormatProgID(L"ThunderfoxPDF", aAumi);
   if (!CheckProgIDExists(pdfProgID.get())) {
     LOG_ERROR_MESSAGE(L"ProgID %s not found", pdfProgID.get());
     return MOZ_E_NO_PROGID;
