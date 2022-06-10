@@ -1,4 +1,4 @@
 ;!@Install@!UTF-8!
-Title="Mozilla Firefox"
+Title="Thunderfox"
 RunProgram="setup-stub.exe"
 ;!@InstallEnd@!

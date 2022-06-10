@@ -11,7 +11,7 @@
 
 #  include <windows.h>
 
-#  define POLICY_REGKEY_NAME L"SOFTWARE\\Policies\\Mozilla\\" MOZ_APP_BASENAME
+#  define POLICY_REGKEY_NAME L"SOFTWARE\\Policies\\typeling1578\\" MOZ_APP_BASENAME
 
 // NB: This code must be able to run apart from XPCOM
 
