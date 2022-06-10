@@ -86,6 +86,8 @@ var UpdateUtils = {
         switch (name) {
           case "PRODUCT":
             return Services.appinfo.name;
+          case "VENDOR":
+            return Services.appinfo.vendor;
           case "VERSION":
             return Services.appinfo.version;
           case "BUILD_ID":
@@ -94,10 +96,16 @@ var UpdateUtils = {
             return Services.appinfo.OS + "_" + this.ABI;
           case "OS_VERSION":
             return this.OSVersion;
+          case "ARCH":
+            return this.ABI.substring(0, this.ABI.indexOf("-"));
           case "LOCALE":
             return locale;
           case "CHANNEL":
             return this.UpdateChannel;
+          case "DISPLAY_VERSION":
+            return AppConstants.MOZ_APP_VERSION_DISPLAY;
+          case "PLATFORM":
+            return AppConstants.platform;
           case "PLATFORM_VERSION":
             return Services.appinfo.platformVersion;
           case "SYSTEM_CAPABILITIES":
