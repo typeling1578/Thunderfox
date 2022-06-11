@@ -16,13 +16,13 @@ BEGIN
   BEGIN
       BLOCK "040904b0"
       BEGIN
-          VALUE "CompanyName", "Mozilla"
-          VALUE "FileDescription", "Firefox"
+          VALUE "CompanyName", "typeling1578"
+          VALUE "FileDescription", "Thunderfox"
           VALUE "FileVersion", MY_VERSION
           VALUE "InternalName", "7zSD.sfx"
-          VALUE "LegalCopyright", "Mozilla"
+          VALUE "LegalCopyright", "typeling1578"
           VALUE "OriginalFilename", "7zSD.sfx"
-          VALUE "ProductName", "Firefox"
+          VALUE "ProductName", "Thunderfox"
           VALUE "ProductVersion", MY_VERSION
       END
   END
