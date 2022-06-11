@@ -3,7 +3,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 MOZ_APP_DISPLAYNAME="Thunderfox Beta"
-MOZ_UPDATE_CHANNEL=beta
 
 MOZ_HANDLER_CLSID="1f378382-23c9-59dd-a683-1fd8e96e5be0"
 MOZ_IHANDLERCONTROL_IID="4b71d471-f509-577f-8bc8-c713547ea048"
