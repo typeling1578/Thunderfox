@@ -77,3 +77,5 @@ pref("browser.urlbar.trimURLs", false);
 pref("gfx.webrender.all", true);
 
 pref("alerts.playSound", true);
+
+pref("extensions.experiments.enabled", false, locked);
