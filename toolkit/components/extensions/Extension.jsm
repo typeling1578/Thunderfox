@@ -165,6 +165,7 @@ const { sharedData } = Services.ppmm;
 const PRIVATE_ALLOWED_PERMISSION = "internal:privateBrowsingAllowed";
 const SVG_CONTEXT_PROPERTIES_PERMISSION =
   "internal:svgContextPropertiesAllowed";
+const EXPERIMENT_APIS_ALLOWED_PERMISSION = "internal:experimentApisAllowed";
 
 // The userContextID reserved for the extension storage (its purpose is ensuring that the IndexedDB
 // storage used by the browser.storage.local API is not directly accessible from the extension code,
@@ -1295,9 +1296,7 @@ class ExtensionData {
 
       let allow_experimant = false;
       if (this.id && manifest.experiment_apis) {
-        let pref = Services.prefs.getStringPref("extensions.experiments.allow_addons", "");
-        let addon_ids = pref.replaceAll(" ", "").split(",");
-        if (addon_ids.includes(this.id)) {
+        if ((await ExtensionPermissions.get(this.id)).permissions.includes(EXPERIMENT_APIS_ALLOWED_PERMISSION)) {
           allow_experimant = true;
         }
       }
