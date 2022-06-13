@@ -49,7 +49,8 @@ class Theme {
     this.darkDetails = darkDetails;
     this.windowId = windowId;
 
-    if (startupData && startupData.lwtData) {
+    // Do not use cached data.
+    if (false) {
       Object.assign(this, startupData);
     } else {
       // TODO(ntim): clean this in bug 1550090
@@ -96,7 +97,8 @@ class Theme {
    *   properties can be found in the schema under ThemeType.
    */
   load() {
-    if (!this.lwtData) {
+    // Do not use cached data.
+    if (true) {
       this.loadDetails(this.details, this.lwtStyles);
       if (this.darkDetails) {
         this.loadDetails(this.darkDetails, this.lwtDarkStyles);
@@ -117,7 +119,8 @@ class Theme {
         lwtDarkStyles: this.lwtDarkStyles,
         experiment: this.experiment,
       };
-      this.extension.saveStartupData();
+      // Do not cache.
+      //this.extension.saveStartupData();
     }
 
     if (this.windowId) {
