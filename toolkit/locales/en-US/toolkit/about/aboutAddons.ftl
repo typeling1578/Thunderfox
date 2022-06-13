@@ -106,6 +106,16 @@ detail-experiment-apis-off =
     .label = Don’t Allow
     .tooltiptext = Disable experiment_apis
 
+detail-theme-experiment-label = Allow theme_experiment
+
+detail-theme-experiment-on =
+    .label = Allow
+    .tooltiptext = Enable theme_experiment
+
+detail-theme-experiment-off =
+    .label = Don’t Allow
+    .tooltiptext = Disable theme_experiment
+
 detail-home =
     .label = Homepage
 
@@ -441,6 +451,10 @@ addon-detail-experiment-apis-help = When allowed, the extension can use advanced
 addon-detail-experiment-apis-allow = Allow
 addon-detail-experiment-apis-disallow = Don’t Allow
 
+addon-detail-theme-experiment-help = When allowed, the theme extension can use advanced experimental properties. If you do not know what it is doing, never allow it. <a data-l10n-name="learn-more">Learn more</a>
+addon-detail-theme-experiment-allow = Allow
+addon-detail-theme-experiment-disallow = Don’t Allow
+
 ## This is the tooltip text for the recommended badges for an extension in about:addons. The
 ## badge is a small icon displayed next to an extension when it is recommended on AMO.
 
@@ -522,3 +536,6 @@ details-notification-gmp-pending = { $name } will be installed shortly.
 
 experiment-apis-confirm-title = WARNING
 experiment-apis-confirm-message = This setting expands the permissions of the add-on. If you do not trust this add-on or do not know what it is doing, never allow it.
+
+theme-experiment-confirm-title = WARNING
+theme-experiment-confirm-message = This setting expands the permissions of the theme add-on. If you do not trust this theme add-on or do not know what it is doing, never allow it.
