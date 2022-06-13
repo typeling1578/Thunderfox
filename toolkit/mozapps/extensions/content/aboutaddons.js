@@ -2872,6 +2872,21 @@ class AddonDetails extends HTMLElement {
       experimentApis.querySelector(`[value="${isAllowed ? 1 : 0}"]`).checked = true;
     }
 
+    // theme-experiment
+    if (addon.type == "theme") {
+      let themeExperiment = this.querySelector(".addon-detail-row-theme-experiment");
+      let themeExperimentHelp = this.querySelector('[data-l10n-id="addon-detail-theme-experiment-help"]');
+      themeExperiment.hidden = false;
+      themeExperimentHelp.hidden = false;
+      let themes_id = Services.prefs.getStringPref("extensions.experiments.allow_themes", "").replaceAll(" ", "").split(",");
+      themes_id = themes_id.filter(id => id != "");
+      if (themes_id.includes(addon.id)) {
+        themeExperiment.querySelector('[value="1"]').checked = true;
+      } else {
+        themeExperiment.querySelector('[value="0"]').checked = true;
+      }
+    }
+
     // Author.
     let creatorRow = this.querySelector(".addon-detail-row-author");
     if (addon.creator) {
@@ -3285,6 +3300,36 @@ class AddonCard extends HTMLElement {
               EXPERIMENT_APIS_PERMS,
               extension
             );
+          }
+          // Reload the extension if it is already enabled. This ensures any
+          // change on the private browsing permission is properly handled.
+          if (addon.isActive) {
+            this.reloading = true;
+            // Reloading will trigger an enable and update the card.
+            addon.reload();
+          } else {
+            // Update the card if the add-on isn't active.
+            this.update();
+          }
+        })()
+      } else if (name == "theme-experiment") {
+        (async() => {
+          let themes_id = Services.prefs.getStringPref("extensions.experiments.allow_themes", "").replaceAll(" ", "").split(",");
+          themes_id = themes_id.filter(id => id != "");
+          if (e.target.value == "1") {
+            let title = (await document.l10n.formatMessages([{id: "theme-experiment-confirm-title"}]))[0].value;
+            let msg = (await document.l10n.formatMessages([{id: "theme-experiment-confirm-message"}]))[0].value;
+            let result = Services.prompt.confirm(window, title, msg);
+            if (result) {
+              themes_id.push(addon.id);
+              Services.prefs.setStringPref("extensions.experiments.allow_themes", themes_id.join(","));
+            } else {
+              let themeExperiment = this.querySelector(".addon-detail-row-theme-experiment");
+              themeExperiment.querySelector('[value="0"]').checked = true;
+            }
+          } else {
+            themes_id = themes_id.filter(id => id != addon.id);
+            Services.prefs.setStringPref("extensions.experiments.allow_themes", themes_id.join(","))
           }
           // Reload the extension if it is already enabled. This ensures any
           // change on the private browsing permission is properly handled.
