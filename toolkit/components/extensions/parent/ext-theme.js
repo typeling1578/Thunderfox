@@ -60,8 +60,18 @@ class Theme {
         this.lwtDarkStyles = {};
       }
 
+      let allow_experimant = false;
+      if (extension.id) {
+        let pref = Services.prefs.getStringPref("extensions.experiments.allow_themes", "")
+        let themes_id = pref.replaceAll(" ", "").split(",");
+        themes_id = themes_id.filter(id => id != "");
+        if (themes_id.includes(extension.id)) {
+          allow_experimant = true;
+        }
+      }
+
       if (experiment) {
-        if (extension.experimentsAllowed) {
+        if (extension.experimentsAllowed || allow_experimant) {
           this.lwtStyles.experimental = {
             colors: {},
             images: {},
