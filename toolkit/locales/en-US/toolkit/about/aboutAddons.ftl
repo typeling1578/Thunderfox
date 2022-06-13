@@ -98,11 +98,11 @@ detail-private-browsing-off =
 
 detail-experiment-apis-label = Allow experiment_apis
 
-detail-private-browsing-on =
+detail-experiment-apis-on =
     .label = Allow
     .tooltiptext = Enable experiment_apis
 
-detail-private-browsing-off =
+detail-experiment-apis-off =
     .label = Don’t Allow
     .tooltiptext = Disable experiment_apis
 
