@@ -1,0 +1,116 @@
+#!/usr/bin/env python3
+
+import os
+import platform
+import subprocess
+
+top = [
+    "Thunderfox Build Setup Tool",
+    "",
+    "Welcome to Thunderfox!",
+    "",
+    "",
+    "Press Enter to continue setup.",
+]
+print("\n".join(top))
+input()
+
+
+channel = input("Which channel do you want to setup for?: ")
+
+
+print("Generating mozconfig...")
+if(os.name == "nt"):
+    basepath = "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Redist/MSVC"
+    if(os.path.isdir(basepath)):
+        listdir = [f for f in os.listdir(basepath) if os.path.isdir(os.path.join(basepath, f))]
+        if(len(listdir) > 0):
+            latest = listdir[0]
+            path = basepath + "/" + latest + "/x64/Microsoft.VC143.CRT"
+            if(os.path.isdir(path)):
+                redistDir = path
+            else:
+                print("Warning: Could not find the MSVC runtime. Please set it up manually.")
+                redistDir = ""
+        else:
+            print("Warning: Could not find the MSVC runtime. Please set it up manually.")
+            redistDir = ""
+    else:
+        print("Warning: Could not find the MSVC runtime. Please set it up manually.")
+        redistDir = ""
+else:
+    redistDir = ""
+l10nDir = os.path.dirname(__file__).replace("\\", "/") + "/browser/locales/l10n"
+apiKeyDir = os.path.dirname(__file__).replace("\\", "/") + "/browser/apikeys"
+mozconfig_options_win = [
+    "ac_add_options --with-branding=browser/branding/" + channel,
+    "ac_add_options --enable-rust-simd",
+    'ac_add_options --with-mozilla-api-keyfile="' + apiKeyDir + '/mozilla-desktop-geoloc-api.key"',
+    'ac_add_options --with-google-location-service-api-keyfile="' + apiKeyDir + '/gls-gapi.data"',
+    'ac_add_options --with-google-safebrowsing-api-keyfile="' + apiKeyDir + '/sb-gapi.data"',
+    "ac_add_options --enable-proxy-bypass-protection",
+    "ac_add_options --disable-maintenance-service",
+    "ac_add_options --disable-verify-mar",
+    "ac_add_options --disable-update-agent",
+    "ac_add_options --disable-crashreporter",
+    "ac_add_options --enable-update-channel=" + channel,
+    'ac_add_options --with-l10n-base="' + l10nDir + '"',
+    "export MOZ_STUB_INSTALLER=1",
+    'export WIN32_REDIST_DIR="'+ redistDir +'"',
+    ""
+]
+mozconfig_options_linux = [
+    "ac_add_options --with-branding=browser/branding/" + channel,
+    "ac_add_options --enable-rust-simd",
+    'ac_add_options --with-mozilla-api-keyfile="' + apiKeyDir + '/mozilla-desktop-geoloc-api.key"',
+    'ac_add_options --with-google-location-service-api-keyfile="' + apiKeyDir + '/gls-gapi.data"',
+    'ac_add_options --with-google-safebrowsing-api-keyfile="' + apiKeyDir + '/sb-gapi.data"',
+    "ac_add_options --enable-proxy-bypass-protection",
+    "ac_add_options --disable-verify-mar",
+    "ac_add_options --disable-updater",
+    "ac_add_options --disable-crashreporter",
+    "ac_add_options --enable-update-channel=" + channel,
+    'ac_add_options --with-l10n-base="' + l10nDir + '"',
+    "export MOZ_STUB_INSTALLER=1",
+    ""
+]
+mozconfig_options_mac = [ #unable
+    "ac_add_options --with-branding=browser/branding/" + channel,
+    "ac_add_options --enable-rust-simd",
+    'ac_add_options --with-mozilla-api-keyfile="' + apiKeyDir + '/mozilla-desktop-geoloc-api.key"',
+    'ac_add_options --with-google-location-service-api-keyfile="' + apiKeyDir + '/gls-gapi.data"',
+    'ac_add_options --with-google-safebrowsing-api-keyfile="' + apiKeyDir + '/sb-gapi.data"',
+    "ac_add_options --enable-proxy-bypass-protection",
+    "ac_add_options --disable-maintenance-service",
+    "ac_add_options --disable-verify-mar",
+    "ac_add_options --disable-update-agent",
+    "ac_add_options --disable-crashreporter",
+    "ac_add_options --enable-update-channel=" + channel,
+    'ac_add_options --with-l10n-base="' + l10nDir + '"',
+    "export MOZ_STUB_INSTALLER=1",
+    ""
+]
+if(platform.system() == "Windows"):
+    mozconfig_options = mozconfig_options_win
+elif(platform.system() == "Linux"):
+    mozconfig_options = mozconfig_options_linux
+elif(platform.system() == "Darwin"):
+    print("Warning: The Mac version is currently not supported.")
+    mozconfig_options = mozconfig_options_mac
+if(os.path.isfile("./mozconfig")):
+    result = input("mozconfig already exists. Do you want to overwrite it? (y/n): ")
+    if(result == "y" or result == "Y"):
+        mozconfig = open("./mozconfig", "w")
+        mozconfig.write("\n".join(mozconfig_options))
+else:
+    mozconfig = open("./mozconfig", "w")
+    mozconfig.write("\n".join(mozconfig_options))
+
+
+result = input("Do you want to setup l10n? (y/n): ")
+if(result == "y" or result == "Y"):
+    print("l10n setup in progress...")
+    subprocess.call(["python3", "./browser/locales/l10n_setup_tool.py", "full-setup"])
+
+
+print("Setup completed!")
