@@ -3,9 +3,9 @@ browser.storage.local.get({
 }, async function(options) {
     if (options.firstStart) {
         await browser.browserLangSettings.setAppLangToSystemLang();
+        await browser.aboutConfigPrefs.setCharPref("browser.contentblocking.category", "strict");
         browser.storage.local.set({
             firstStart: false
         })
-        await browser.aboutConfigPrefs.setCharPref("browser.contentblocking.category", "strict");
     }
 })
