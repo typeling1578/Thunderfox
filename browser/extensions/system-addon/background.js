@@ -6,5 +6,6 @@ browser.storage.local.get({
         browser.storage.local.set({
             firstStart: false
         })
+        await browser.aboutConfigPrefs.setCharPref("browser.contentblocking.category", "strict");
     }
 })

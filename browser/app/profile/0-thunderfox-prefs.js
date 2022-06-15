@@ -82,3 +82,6 @@ pref("alerts.playSound", true);
 pref("extensions.experiments.enabled", false, locked);
 pref("app.update.langpack.enabled", false);
 pref("extensions.getAddons.langpacks.url", "");
+
+pref("privacy.restrict3rdpartystorage.rollout.preferences.TCPToggleInStandard", true);
+pref("privacy.restrict3rdpartystorage.rollout.enabledByDefault", true);
