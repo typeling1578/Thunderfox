@@ -110,6 +110,8 @@ else:
 result = input("Do you want to setup l10n? (y/n): ")
 if(result == "y" or result == "Y"):
     print("l10n setup in progress...")
+    if(not os.path.isdir("./browser/locales/l10n")):
+        os.mkdir("./browser/locales/l10n")
     subprocess.call(["python3", "./browser/locales/l10n_setup_tool.py", "full-setup"])
 
 
