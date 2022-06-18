@@ -19,6 +19,8 @@ FINAL_TARGET_FILES.features["system-addon@typeling1578"]["experimental-apis"] +=
     "experimental-apis/aboutConfigPrefs.json",
     "experimental-apis/browserInfo.js",
     "experimental-apis/browserInfo.json",
+    "experimental-apis/browserLangSettings.js",
+    "experimental-apis/browserLangSettings.json",
 ]
 
 with Files("**"):
