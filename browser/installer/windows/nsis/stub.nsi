@@ -964,6 +964,8 @@ Function SendPing
   HideWindow
 
   ; Disable ping
+  SetAutoClose true
+  SendMessage $HWNDPARENT "0x408" "$R9" ""
   Return
 
   ${If} $CheckboxSendPing == 1
