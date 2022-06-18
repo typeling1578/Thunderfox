@@ -80,3 +80,5 @@ pref("gfx.webrender.all", true);
 pref("alerts.playSound", true);
 
 pref("extensions.experiments.enabled", false, locked);
+pref("app.update.langpack.enabled", false);
+pref("extensions.getAddons.langpacks.url", "");
