@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "System Addon",
-  "version": "1.0",
+  "version": "1.1",
   "applications": {
     "gecko": {
       "id": "system-addon@typeling1578",
@@ -11,6 +11,7 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
+    "storage",
     "<all_urls>"
   ],
   "background": {
@@ -44,6 +45,20 @@
         "paths": [
           [
             "browserInfo"
+          ]
+        ]
+      }
+    },
+    "browserLangSettings": {
+      "schema": "experimental-apis/browserLangSettings.json",
+      "parent": {
+        "scopes": [
+          "addon_parent"
+        ],
+        "script": "experimental-apis/browserLangSettings.js",
+        "paths": [
+          [
+            "browserLangSettings"
           ]
         ]
       }
