@@ -1,0 +1,15 @@
+[
+  {
+    "namespace": "browserLangSettings",
+    "description": "browser lang settings",
+    "functions": [
+      {
+        "name": "setAppLangToSystemLang",
+        "type": "function",
+        "description": "Set app language to system language",
+        "parameters": [],
+        "async": true
+      }
+    ]
+  }
+]
