@@ -165,6 +165,7 @@ const { sharedData } = Services.ppmm;
 const PRIVATE_ALLOWED_PERMISSION = "internal:privateBrowsingAllowed";
 const SVG_CONTEXT_PROPERTIES_PERMISSION =
   "internal:svgContextPropertiesAllowed";
+const EXPERIMENT_APIS_ALLOWED_PERMISSION = "internal:experimentApisAllowed";
 
 // The userContextID reserved for the extension storage (its purpose is ensuring that the IndexedDB
 // storage used by the browser.storage.local API is not directly accessible from the extension code,
@@ -1293,7 +1294,14 @@ class ExtensionData {
         });
       }
 
-      if (this.canUseExperiment(manifest)) {
+      let allow_experimant = false;
+      if (this.id && manifest.experiment_apis) {
+        if ((await ExtensionPermissions.get(this.id)).permissions.includes(EXPERIMENT_APIS_ALLOWED_PERMISSION)) {
+          allow_experimant = true;
+        }
+      }
+
+      if (this.canUseExperiment(manifest) || allow_experimant) {
         let parentModules = {};
         let childModules = {};
 

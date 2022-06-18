@@ -96,6 +96,16 @@ detail-private-browsing-off =
     .label = Don’t Allow
     .tooltiptext = Disable in Private Browsing
 
+detail-experiment-apis-label = Allow experiment_apis
+
+detail-experiment-apis-on =
+    .label = Allow
+    .tooltiptext = Enable experiment_apis
+
+detail-experiment-apis-off =
+    .label = Don’t Allow
+    .tooltiptext = Disable experiment_apis
+
 detail-home =
     .label = Homepage
 
@@ -427,6 +437,10 @@ addon-detail-private-browsing-help = When allowed, the extension will have acces
 addon-detail-private-browsing-allow = Allow
 addon-detail-private-browsing-disallow = Don’t Allow
 
+addon-detail-experiment-apis-help = When allowed, the extension can use advanced experimental APIs. If you do not know what it is doing, never allow it. <a data-l10n-name="learn-more">Learn more</a>
+addon-detail-experiment-apis-allow = Allow
+addon-detail-experiment-apis-disallow = Don’t Allow
+
 ## This is the tooltip text for the recommended badges for an extension in about:addons. The
 ## badge is a small icon displayed next to an extension when it is recommended on AMO.
 
@@ -504,3 +518,7 @@ details-notification-softblocked = { $name } is known to cause security or stabi
 details-notification-softblocked-link = More Information
 
 details-notification-gmp-pending = { $name } will be installed shortly.
+
+
+experiment-apis-confirm-title = WARNING
+experiment-apis-confirm-message = This setting expands the permissions of the add-on. If you do not trust this add-on or do not know what it is doing, never allow it.
