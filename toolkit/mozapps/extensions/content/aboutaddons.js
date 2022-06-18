@@ -103,6 +103,11 @@ const PRIVATE_BROWSING_PERMS = {
   permissions: [PRIVATE_BROWSING_PERM_NAME],
   origins: [],
 };
+const EXPERIMENT_APIS_PERM_NAME = "internal:experimentApisAllowed";
+const EXPERIMENT_APIS_PERMS = {
+  permissions: [EXPERIMENT_APIS_PERM_NAME],
+  origins: [],
+}
 
 function shouldSkipAnimations() {
   return (
@@ -2856,6 +2861,17 @@ class AddonDetails extends HTMLElement {
       pbRow.querySelector(`[value="${isAllowed ? 1 : 0}"]`).checked = true;
     }
 
+    // experiment-apis
+    if (addon.type == "extension") {
+      let experimentApis = this.querySelector(".addon-detail-row-experiment-apis");
+      let experimentApisHelp = this.querySelector('[data-l10n-id="addon-detail-experiment-apis-help"]');
+      experimentApis.hidden = false;
+      experimentApisHelp.hidden = false;
+      let perms = await ExtensionPermissions.get(addon.id);
+      let isAllowed = perms.permissions.includes(EXPERIMENT_APIS_PERM_NAME);
+      experimentApis.querySelector(`[value="${isAllowed ? 1 : 0}"]`).checked = true;
+    }
+
     // Author.
     let creatorRow = this.querySelector(".addon-detail-row-author");
     if (addon.creator) {
@@ -3245,6 +3261,42 @@ class AddonCard extends HTMLElement {
           // Update the card if the add-on isn't active.
           this.update();
         }
+      } else if (name == "experiment-apis") {
+        (async() => {
+          let policy = WebExtensionPolicy.getByID(addon.id);
+          let extension = policy && policy.extension;
+          if (e.target.value == "1") {
+            let title = (await document.l10n.formatMessages([{id: "experiment-apis-confirm-title"}]))[0].value;
+            let msg = (await document.l10n.formatMessages([{id: "experiment-apis-confirm-message"}]))[0].value;
+            let result = Services.prompt.confirm(window, title, msg);
+            if (result) {
+              await ExtensionPermissions.add(
+                addon.id,
+                EXPERIMENT_APIS_PERMS,
+                extension
+              );
+            } else {
+              let experimentApis = this.querySelector(".addon-detail-row-experiment-apis");
+              experimentApis.querySelector('[value="0"]').checked = true;
+            }
+          } else {
+            await ExtensionPermissions.remove(
+              addon.id,
+              EXPERIMENT_APIS_PERMS,
+              extension
+            );
+          }
+          // Reload the extension if it is already enabled. This ensures any
+          // change on the private browsing permission is properly handled.
+          if (addon.isActive) {
+            this.reloading = true;
+            // Reloading will trigger an enable and update the card.
+            addon.reload();
+          } else {
+            // Update the card if the add-on isn't active.
+            this.update();
+          }
+        })()
       }
     } else if (e.type == "mousedown") {
       // Open panel on mousedown when the mouse is used.
