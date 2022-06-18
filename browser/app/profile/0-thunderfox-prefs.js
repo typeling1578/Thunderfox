@@ -78,6 +78,7 @@ pref("browser.urlbar.trimURLs", false);
 pref("gfx.webrender.all", true);
 
 pref("alerts.playSound", true);
+pref("toolkit.legacyUserProfileCustomizations.javascript", false);
 
 pref("extensions.experiments.enabled", false, locked);
 pref("app.update.langpack.enabled", false);
