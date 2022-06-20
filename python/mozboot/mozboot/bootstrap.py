@@ -44,27 +44,13 @@ from mozfile import which
 import distro
 
 APPLICATION_CHOICE = """
-Note on Artifact Mode:
-
-Artifact builds download prebuilt C++ components rather than building
-them locally. Artifact builds are faster!
-
-Artifact builds are recommended for people working on Firefox or
-Firefox for Android frontends, or the GeckoView Java API. They are unsuitable
-for those working on C++ code. For more information see:
-https://firefox-source-docs.mozilla.org/contributing/build/artifact_builds.html.
-
-Please choose the version of Firefox you want to build (see note above):
+Please choose the version of Thunderfox you want to build:
 %s
 Your choice: """
 
 APPLICATIONS = OrderedDict(
     [
-        ("Firefox for Desktop Artifact Mode", "browser_artifact_mode"),
-        ("Firefox for Desktop", "browser"),
-        ("GeckoView/Firefox for Android Artifact Mode", "mobile_android_artifact_mode"),
-        ("GeckoView/Firefox for Android", "mobile_android"),
-        ("SpiderMonkey JavaScript engine", "js"),
+        ("Thunderfox for Desktop", "browser"),
     ]
 )
 
@@ -245,19 +231,7 @@ class Bootstrapper(object):
         getattr(self.instance, "ensure_%s_packages" % application)()
 
     def check_code_submission(self, checkout_root: Path):
-        if self.instance.no_interactive or which("moz-phab"):
-            return
-
-        # Skip moz-phab install until bug 1696357 is fixed and makes it to a moz-phab
-        # release.
-        if sys.platform.startswith("darwin") and platform.machine() == "arm64":
-            return
-
-        if not self.instance.prompt_yesno("Will you be submitting commits to Mozilla?"):
-            return
-
-        mach_binary = checkout_root / "mach"
-        subprocess.check_call((sys.executable, str(mach_binary), "install-moz-phab"))
+        return
 
     def bootstrap(self, settings):
         if self.choice is None:
@@ -330,39 +304,8 @@ class Bootstrapper(object):
         # Like 'install_browser_packages' or 'install_mobile_android_packages'.
         getattr(self.instance, "install_%s_packages" % application)(mozconfig_builder)
 
-        hg_installed, hg_modern = self.instance.ensure_mercurial_modern()
         if not self.instance.artifact_mode:
             self.instance.ensure_rust_modern()
-
-        git = to_optional_path(which("git"))
-
-        # Possibly configure Mercurial, but not if the current checkout or repo
-        # type is Git.
-        if hg_installed and checkout_type == "hg":
-            if not self.instance.no_interactive:
-                configure_hg = self.instance.prompt_yesno(prompt=CONFIGURE_MERCURIAL)
-            else:
-                configure_hg = self.hg_configure
-
-            if configure_hg:
-                configure_mercurial(hg, state_dir)
-
-        # Offer to configure Git, if the current checkout or repo type is Git.
-        elif git and checkout_type == "git":
-            should_configure_git = False
-            if not self.instance.no_interactive:
-                should_configure_git = self.instance.prompt_yesno(prompt=CONFIGURE_GIT)
-            else:
-                # Assuming default configuration setting applies to all VCS.
-                should_configure_git = self.hg_configure
-
-            if should_configure_git:
-                configure_git(
-                    git,
-                    to_optional_path(which("git-cinnabar")),
-                    state_dir,
-                    checkout_root,
-                )
 
         self.maybe_install_private_packages_or_exit(application)
         self.check_code_submission(checkout_root)
