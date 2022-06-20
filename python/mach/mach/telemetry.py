@@ -103,10 +103,7 @@ def is_applicable_telemetry_environment():
 
 
 def is_telemetry_enabled(settings):
-    if os.environ.get("DISABLE_TELEMETRY") == "1":
-        return False
-
-    return settings.mach_telemetry.is_enabled
+    return False
 
 
 def arcrc_path():
@@ -292,18 +289,4 @@ def initialize_telemetry_setting(settings, topsrcdir: str, state_dir: str):
     if state_dir is not None:
         state_dir = Path(state_dir)
 
-    if os.environ.get("DISABLE_TELEMETRY") == "1":
-        return
-
-    try:
-        is_employee = resolve_is_employee(topsrcdir)
-    except requests.exceptions.RequestException:
-        return
-
-    if is_employee:
-        is_enabled = True
-        print_telemetry_message_employee()
-    else:
-        is_enabled = prompt_telemetry_message_contributor()
-
-    record_telemetry_settings(settings, state_dir, is_enabled)
+    return
