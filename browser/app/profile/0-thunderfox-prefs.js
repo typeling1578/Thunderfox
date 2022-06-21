@@ -85,3 +85,5 @@ pref("extensions.getAddons.langpacks.url", "");
 
 pref("privacy.restrict3rdpartystorage.rollout.preferences.TCPToggleInStandard", true);
 pref("privacy.restrict3rdpartystorage.rollout.enabledByDefault", true);
+
+pref("app.feedback.baseURL", "https://github.com/typeling1578/Thunderfox/issues");
