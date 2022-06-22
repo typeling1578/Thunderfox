@@ -5,6 +5,7 @@ A Simple, highly customizable, and free web browser
 * MKV format videos can be played!
 * experiment_apis available!
 * theme_experiment available!
+* Support for userChrome.js!
 
 ## Download
 https://github.com/typeling1578/Thunderfox/releases
