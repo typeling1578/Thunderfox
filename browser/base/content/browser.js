@@ -1856,18 +1856,6 @@ var gBrowserInit = {
       )?.removeAttribute("key");
     }
 
-    if(Services.prefs.getBoolPref("toolkit.legacyUserProfileCustomizations.javascript", false)) {
-      const { OS } = ChromeUtils.import("resource://gre/modules/osfile.jsm");
-      const { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
-      let userChrome_dir_path = Services.dirsvc.get("UChrm", Ci.nsIFile).path;
-      let userChromeJS_path = OS.Path.join(userChrome_dir_path, "userChrome.js");
-      if(FileUtils.File(userChromeJS_path).exists()) {
-        let userChromeJS_elem = document.createElement("script");
-        userChromeJS_elem.src = OS.Path.toFileURI(userChromeJS_path);
-        document.documentElement.appendChild(userChromeJS_elem);
-      }
-    }
-
     this._loadHandled = true;
   },
 
