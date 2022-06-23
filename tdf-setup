@@ -67,7 +67,6 @@ mozconfig_options_linux = [
     'ac_add_options --with-google-safebrowsing-api-keyfile="' + apiKeyDir + '/sb-gapi.data"',
     "ac_add_options --enable-proxy-bypass-protection",
     "ac_add_options --disable-verify-mar",
-    "ac_add_options --disable-updater",
     "ac_add_options --disable-crashreporter",
     "ac_add_options --enable-update-channel=" + channel,
     'ac_add_options --with-l10n-base="' + l10nDir + '"',
