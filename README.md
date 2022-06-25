@@ -6,6 +6,7 @@ A Simple, highly customizable, and free web browser
 * experiment_apis available!
 * theme_experiment available!
 * Support for userChrome.js!
+* Support for Legacy Add-ons!
 
 ## Download
 https://github.com/typeling1578/Thunderfox/releases
