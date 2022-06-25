@@ -6,6 +6,9 @@ toolkit.jar:
    content/global/autocomplete.css
    content/global/aboutAbout.js
    content/global/aboutAbout.html
+   content/global/aboutuserChromeCSS.js
+   content/global/aboutuserChromeCSS.html
+   content/global/aboutuserChromeCSS.css
 #ifdef MOZILLA_OFFICIAL
    content/global/aboutRights.xhtml
 #else

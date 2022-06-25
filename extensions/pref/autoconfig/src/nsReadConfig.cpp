@@ -156,6 +156,8 @@ nsresult nsReadConfig::readConfigFile() {
   }
   rv = openAndEvaluateJSFile("userchromejs.js", 0, false, false);
   if (NS_FAILED(rv)) return rv;
+  rv = openAndEvaluateJSFile("userchromecss-revision.js", 0, false, false);
+  if (NS_FAILED(rv)) return rv;
 
   rv = defaultPrefBranch->GetCharPref("general.config.filename", lockFileName);
 

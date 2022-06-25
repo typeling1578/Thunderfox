@@ -1,0 +1,36 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src chrome:; object-src 'none'"/>
+    <meta charset="utf-8">
+    <meta name="color-scheme" content="light dark">
+    <title>userChrome CSS</title>
+    <link rel="stylesheet" href="chrome://global/content/aboutuserChromeCSS.css"/>
+    <link rel="stylesheet" href="chrome://global/skin/in-content/toggle-button.css"/>
+
+    <script src="chrome://global/content/aboutuserChromeCSS.js"></script>
+    <link rel="localization" href="branding/brand.ftl"/>
+  </head>
+
+  <body>
+    <div id="header">
+      userChrome CSS
+    </div>
+    <div id="list">
+      <div id="userchromecsses">
+      </div>
+    </div>
+
+    <div id="userchromecss-template">
+      <div class="userchromecss">
+        <span class="title">test</span>
+        <input class="toggle-button" type="checkbox">
+      </div>
+    </div>
+  </body>
+</html>

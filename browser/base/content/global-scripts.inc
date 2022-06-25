@@ -23,4 +23,5 @@ if (AppConstants.platform == "macosx") {
   Services.scriptloader.loadSubScript("chrome://global/content/macWindowMenu.js", this);
 }
 
+Services.scriptloader.loadSubScript("chrome://browser/content/userchromecss-revision-sub.js", this);
 </script>
