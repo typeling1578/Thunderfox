@@ -11,6 +11,9 @@ let loaded_csses = [];
 
 let load_dir = function(){
     let dirs = [];
+    if (!userChromeCSS_dir.exists()) {
+        return dirs;
+    }
     let dir_entries = userChromeCSS_dir.directoryEntries;
     while (dir_entries.hasMoreElements()) {
         let dir = dir_entries.getNext().QueryInterface(Ci.nsIFile);
