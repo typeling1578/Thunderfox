@@ -69,6 +69,7 @@ pref("extensions.webextensions.restrictedDomains", "");
 pref("xpinstall.userActivation.required", false);
 pref("extensions.install_origins.enabled", false);
 pref("browser.theme.colorway-closet", true);
+pref("widget.disable-swipe-tracker", false);
 
 pref("font.name-list.emoji", "Twemoji Mozilla");
 pref("browser.preferences.moreFromMozilla", false);
