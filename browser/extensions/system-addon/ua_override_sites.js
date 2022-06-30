@@ -13,10 +13,10 @@ function rewriteUserAgentHeader(e) {
     }
 
     let URL_obj = "";
-    if (!(e.type == "main_frame" || e.type == "sub_frame" || e.type == "object")) {
-        URL_obj = new URL(refurl);
-    } else {
+    if (e.type == "main_frame" || e.type == "sub_frame" || e.type == "object") {
         URL_obj = new URL(e.url);
+    } else {
+        URL_obj = new URL(refurl);
     }
 
     for (override_site of override_sites) {
