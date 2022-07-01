@@ -51,6 +51,8 @@ pref("geo.provider.network.url", "https://location.services.mozilla.com/v1/geolo
 pref("dom.battery.enabled", false);
 pref("device.sensors.enabled", false);
 pref("media.peerconnection.ice.default_address_only", true);
+pref("extensions.InstallTrigger.enabled", false);
+pref("extensions.InstallTriggerImpl.enabled", false);
 
 pref("svg.context-properties.content.enabled", true);
 pref("layout.css.backdrop-filter.enabled", true);
