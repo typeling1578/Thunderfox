@@ -8,14 +8,19 @@ if [ -d "/opt/thunderfox" ]; then
   exit 0
 fi
 
+echo "Downloading..."
 wget -O "${TMP_DIR}/${DL_NAME}" "https://thunderfox.page.link/download_release_linux_x86_64"
 wget -O "${TMP_DIR}/${DL_NAME_DESKTOP}" "https://github.com/typeling1578/Thunderfox/raw/HEAD/browser/linux-installer/thunderfox.desktop"
 
+echo "Extracting..."
 tar xf "${TMP_DIR}/${DL_NAME}" --one-top-level=thunderfox --directory="${TMP_DIR}"
 
+echo "Installing..."
 sudo mv "${TMP_DIR}/thunderfox" /opt/thunderfox/
 sudo ln -s /opt/thunderfox/thunderfox /usr/local/bin/thunderfox
 
 xdg-desktop-menu install --novendor "${TMP_DIR}/tmp.desktop"
+
+echo "Installation complete!"
 
 rm -r ${TMP_DIR}
