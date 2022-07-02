@@ -3,16 +3,16 @@
 import os
 import platform
 import subprocess
+import sys
 
-top = [
-    "Thunderfox Build Setup Tool",
-    "",
-    "Welcome to Thunderfox!",
-    "",
-    "",
-    "Press Enter to continue setup.",
-]
-print("\n".join(top))
+top = """Thunderfox Build Setup Tool
+
+Welcome to Thunderfox!
+
+
+Press Enter to continue setup."""
+
+print(top)
 input()
 
 
@@ -43,67 +43,134 @@ else:
 l10nDir = os.path.abspath(os.path.dirname(__file__)).replace("\\", "/") + "/browser/locales/l10n"
 apiKeyDir = os.path.abspath(os.path.dirname(__file__)).replace("\\", "/") + "/browser/apikeys"
 mozconfig_options_win = [
-    "ac_add_options --with-branding=browser/branding/" + channel,
+    "ac_add_options --with-branding=browser/branding/{channel}",
     "ac_add_options --enable-rust-simd",
-    'ac_add_options --with-mozilla-api-keyfile="' + apiKeyDir + '/mozilla-desktop-geoloc-api.key"',
-    'ac_add_options --with-google-location-service-api-keyfile="' + apiKeyDir + '/gls-gapi.data"',
-    'ac_add_options --with-google-safebrowsing-api-keyfile="' + apiKeyDir + '/sb-gapi.data"',
+    'ac_add_options --with-mozilla-api-keyfile="{apiKeyDir}/mozilla-desktop-geoloc-api.key"',
+    'ac_add_options --with-google-location-service-api-keyfile="{apiKeyDir}/gls-gapi.data"',
+    'ac_add_options --with-google-safebrowsing-api-keyfile="{apiKeyDir}/sb-gapi.data"',
     "ac_add_options --enable-proxy-bypass-protection",
     "ac_add_options --disable-maintenance-service",
     "ac_add_options --disable-verify-mar",
     "ac_add_options --disable-update-agent",
     "ac_add_options --disable-crashreporter",
-    "ac_add_options --enable-update-channel=" + channel,
-    'ac_add_options --with-l10n-base="' + l10nDir + '"',
+    "ac_add_options --enable-update-channel={channel}",
+    'ac_add_options --with-l10n-base="{l10nDir}"',
     "export MOZ_STUB_INSTALLER=1",
-    'export WIN32_REDIST_DIR="'+ redistDir +'"',
-    ""
+    'export WIN32_REDIST_DIR="{redistDir}"',
 ]
 mozconfig_options_linux = [
-    "ac_add_options --with-branding=browser/branding/" + channel,
+    "ac_add_options --with-branding=browser/branding/{channel}",
     "ac_add_options --enable-rust-simd",
-    'ac_add_options --with-mozilla-api-keyfile="' + apiKeyDir + '/mozilla-desktop-geoloc-api.key"',
-    'ac_add_options --with-google-location-service-api-keyfile="' + apiKeyDir + '/gls-gapi.data"',
-    'ac_add_options --with-google-safebrowsing-api-keyfile="' + apiKeyDir + '/sb-gapi.data"',
+    'ac_add_options --with-mozilla-api-keyfile="{apiKeyDir}/mozilla-desktop-geoloc-api.key"',
+    'ac_add_options --with-google-location-service-api-keyfile="{apiKeyDir}/gls-gapi.data"',
+    'ac_add_options --with-google-safebrowsing-api-keyfile="{apiKeyDir}/sb-gapi.data"',
     "ac_add_options --enable-proxy-bypass-protection",
     "ac_add_options --disable-verify-mar",
     "ac_add_options --disable-crashreporter",
-    "ac_add_options --enable-update-channel=" + channel,
-    'ac_add_options --with-l10n-base="' + l10nDir + '"',
+    "ac_add_options --enable-update-channel={channel}",
+    'ac_add_options --with-l10n-base="{l10nDir}"',
     "export MOZ_STUB_INSTALLER=1",
-    ""
 ]
 mozconfig_options_mac = [ #unable
-    "ac_add_options --with-branding=browser/branding/" + channel,
+    "ac_add_options --with-branding=browser/branding/{channel}",
     "ac_add_options --enable-rust-simd",
-    'ac_add_options --with-mozilla-api-keyfile="' + apiKeyDir + '/mozilla-desktop-geoloc-api.key"',
-    'ac_add_options --with-google-location-service-api-keyfile="' + apiKeyDir + '/gls-gapi.data"',
-    'ac_add_options --with-google-safebrowsing-api-keyfile="' + apiKeyDir + '/sb-gapi.data"',
+    'ac_add_options --with-mozilla-api-keyfile="{apiKeyDir}/mozilla-desktop-geoloc-api.key"',
+    'ac_add_options --with-google-location-service-api-keyfile="{apiKeyDir}/gls-gapi.data"',
+    'ac_add_options --with-google-safebrowsing-api-keyfile="{apiKeyDir}/sb-gapi.data"',
     "ac_add_options --enable-proxy-bypass-protection",
-    "ac_add_options --disable-maintenance-service",
     "ac_add_options --disable-verify-mar",
     "ac_add_options --disable-update-agent",
     "ac_add_options --disable-crashreporter",
-    "ac_add_options --enable-update-channel=" + channel,
-    'ac_add_options --with-l10n-base="' + l10nDir + '"',
+    "ac_add_options --enable-update-channel={channel}",
+    'ac_add_options --with-l10n-base="{l10nDir}"',
     "export MOZ_STUB_INSTALLER=1",
-    ""
 ]
+mozconfig_options_mac_cross_aarch64 = [
+    "TOOLS=$HOME/mac-crosstool",
+    r"CROSS_SYSROOT=${TOOLS}/MacOSX11.3.sdk",
+    "export CC=$HOME/.mozbuild/clang/bin/clang",
+    "export CXX=$HOME/.mozbuild/clang/bin/clang++",
+    r"export DMG_TOOL=${TOOLS}/dmg/dmg",
+    "export DSYMUTIL=$HOME/.mozbuild/clang/bin/dsymutil",
+    r"export HFS_TOOL=${TOOLS}/dmg/hfsplus",
+    'export HOST_CFLAGS="-g"',
+    'export HOST_CXXFLAGS="-g"',
+    'export HOST_LDFLAGS="-g"',
+    "export MACOS_SDK_DIR=$CROSS_SYSROOT",
+    r"export MKFSHFS=${TOOLS}/hfsplus-tools/newfs_hfs",
+    'mk_add_options "export LD_LIBRARY_PATH=$HOME/.mozbuild/clang/lib"',
+    r'mk_add_options "export PATH=${TOOLS}/cctools/bin:$HOME/.mozbuild/clang/bin:$PATH"',
+    "unset MOZ_STDCXX_COMPAT",
+    "ac_add_options --with-ccache=sccache",
+    "ac_add_options --target=aarch64-apple-darwin",
+    "ac_add_options --with-branding=browser/branding/{channel}",
+    "ac_add_options --enable-rust-simd",
+    'ac_add_options --with-mozilla-api-keyfile="{apiKeyDir}/mozilla-desktop-geoloc-api.key"',
+    'ac_add_options --with-google-location-service-api-keyfile="{apiKeyDir}/gls-gapi.data"',
+    'ac_add_options --with-google-safebrowsing-api-keyfile="{apiKeyDir}/sb-gapi.data"',
+    "ac_add_options --enable-proxy-bypass-protection",
+    "ac_add_options --disable-verify-mar",
+    "ac_add_options --disable-update-agent",
+    "ac_add_options --disable-crashreporter",
+    "ac_add_options --enable-update-channel={channel}",
+    'ac_add_options --with-l10n-base="{l10nDir}"',
+    "export MOZ_STUB_INSTALLER=1",
+]
+mozconfig_options_mac_cross_x86_x84 = [
+    "TOOLS=$HOME/mac-crosstool",
+    r"CROSS_SYSROOT=${TOOLS}/MacOSX11.3.sdk",
+    "export CC=$HOME/.mozbuild/clang/bin/clang",
+    "export CXX=$HOME/.mozbuild/clang/bin/clang++",
+    r"export DMG_TOOL=${TOOLS}/dmg/dmg",
+    "export DSYMUTIL=$HOME/.mozbuild/clang/bin/dsymutil",
+    r"export HFS_TOOL=${TOOLS}/dmg/hfsplus",
+    'export HOST_CFLAGS="-g"',
+    'export HOST_CXXFLAGS="-g"',
+    'export HOST_LDFLAGS="-g"',
+    "export MACOS_SDK_DIR=$CROSS_SYSROOT",
+    r"export MKFSHFS=${TOOLS}/hfsplus-tools/newfs_hfs",
+    'mk_add_options "export LD_LIBRARY_PATH=$HOME/.mozbuild/clang/lib"',
+    r'mk_add_options "export PATH=${TOOLS}/cctools/bin:$HOME/.mozbuild/clang/bin:$PATH"',
+    "unset MOZ_STDCXX_COMPAT",
+    "ac_add_options --with-ccache=sccache",
+    "ac_add_options --target=x86_64-apple-darwin",
+    "ac_add_options --with-branding=browser/branding/{channel}",
+    "ac_add_options --enable-rust-simd",
+    'ac_add_options --with-mozilla-api-keyfile="{apiKeyDir}/mozilla-desktop-geoloc-api.key"',
+    'ac_add_options --with-google-location-service-api-keyfile="{apiKeyDir}/gls-gapi.data"',
+    'ac_add_options --with-google-safebrowsing-api-keyfile="{apiKeyDir}/sb-gapi.data"',
+    "ac_add_options --enable-proxy-bypass-protection",
+    "ac_add_options --disable-verify-mar",
+    "ac_add_options --disable-update-agent",
+    "ac_add_options --disable-crashreporter",
+    "ac_add_options --enable-update-channel={channel}",
+    'ac_add_options --with-l10n-base="{l10nDir}"',
+    "export MOZ_STUB_INSTALLER=1",
+]
+if(("--enable-mac-aarch64-cross" in sys.argv or "--enable-mac-x86-64-cross" in sys.argv) and (not platform.system() == "Linux")):
+    print("Warning: This option is ignored because it is not possible to cross-compile in this environment.")
 if(platform.system() == "Windows"):
     mozconfig_options = mozconfig_options_win
 elif(platform.system() == "Linux"):
-    mozconfig_options = mozconfig_options_linux
+    if("--enable-mac-aarch64-cross" in sys.argv):
+        mozconfig_options = mozconfig_options_mac_cross_x86_x84
+    elif("--enable-mac-x86-64-cross" in sys.argv):
+        mozconfig_options = mozconfig_options_mac_cross_x86_x84
+    else:
+        mozconfig_options = mozconfig_options_linux
 elif(platform.system() == "Darwin"):
-    print("Warning: The Mac version is currently not supported.")
-    mozconfig_options = mozconfig_options_mac
+    print("Error: The Mac version is currently not supported.")
+    sys.exit(1)
+mozconfig_options = [c.format(channel=channel, redistDir=redistDir, apiKeyDir=apiKeyDir, l10nDir=l10nDir) for c in mozconfig_options]
+
 if(os.path.isfile("./mozconfig")):
     result = input("mozconfig already exists. Do you want to overwrite it? (y/n): ")
     if(result == "y" or result == "Y"):
-        mozconfig = open("./mozconfig", "w")
-        mozconfig.write("\n".join(mozconfig_options))
+        mozconfig = open("./mozconfig_", "w")
+        mozconfig.write("\n".join(mozconfig_options) + "\n")
 else:
-    mozconfig = open("./mozconfig", "w")
-    mozconfig.write("\n".join(mozconfig_options))
+    mozconfig = open("./mozconfig_", "w")
+    mozconfig.write("\n".join(mozconfig_options) + "\n")
 
 
 result = input("Do you want to setup l10n? (y/n): ")
