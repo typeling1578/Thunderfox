@@ -166,11 +166,13 @@ mozconfig_options = [c.format(channel=channel, redistDir=redistDir, apiKeyDir=ap
 if(os.path.isfile("./mozconfig")):
     result = input("mozconfig already exists. Do you want to overwrite it? (y/n): ")
     if(result == "y" or result == "Y"):
-        mozconfig = open("./mozconfig_", "w")
+        mozconfig = open("./mozconfig", "w")
         mozconfig.write("\n".join(mozconfig_options) + "\n")
+        mozconfig.close()
 else:
-    mozconfig = open("./mozconfig_", "w")
+    mozconfig = open("./mozconfig", "w")
     mozconfig.write("\n".join(mozconfig_options) + "\n")
+    mozconfig.close()
 
 
 result = input("Do you want to setup l10n? (y/n): ")
