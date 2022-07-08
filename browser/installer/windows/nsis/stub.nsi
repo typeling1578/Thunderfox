@@ -847,9 +847,11 @@ Function OnDownload
         ; Use a timer so the UI has a chance to update
         ${StartTimer} ${InstallIntervalMS} DisplayDownloadError
       ${Else}
-        CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\download.exe" \
-          "${CertNameDownload}" "${CertIssuerDownload}"
-        ${StartTimer} ${DownloadIntervalMS} OnCertCheck
+        ; Disable signature validation.
+        ; CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\download.exe" \
+        ;   "${CertNameDownload}" "${CertIssuerDownload}"
+        ; ${StartTimer} ${DownloadIntervalMS} OnCertCheck
+        Call LaunchFullInstaller
       ${EndIf}
     ${Else}
       StrCpy $DownloadedBytes "$3"
@@ -960,6 +962,11 @@ FunctionEnd
 
 Function SendPing
   HideWindow
+
+  ; Disable ping
+  SetAutoClose true
+  SendMessage $HWNDPARENT "0x408" "$R9" ""
+  Return
 
   ${If} $CheckboxSendPing == 1
     ; Get the tick count for the completion of all phases.
