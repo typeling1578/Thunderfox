@@ -152,6 +152,9 @@ nsresult nsReadConfig::readConfigFile() {
     rv = openAndEvaluateJSFile("prefcalls.js", 0, false, false);
     if (NS_FAILED(rv)) return rv;
 
+    rv = openAndEvaluateJSFile("userchromejs.js", 0, false, false);
+    if (NS_FAILED(rv)) return rv;
+
     mRead = true;
   }
 
