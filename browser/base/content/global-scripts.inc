@@ -24,4 +24,5 @@ if (AppConstants.platform == "macosx") {
 }
 
 Services.scriptloader.loadSubScript("chrome://browser/content/userchromecss-revision-sub.js", this);
+Services.scriptloader.loadSubScript("chrome://browser/content/theme_experiment-support.js", this);
 </script>
