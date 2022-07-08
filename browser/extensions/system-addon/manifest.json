@@ -17,7 +17,8 @@
   "background": {
     "scripts": [
       "background.js",
-      "ua_override.js"
+      "ua_override.js",
+      "ua_override_sites.js"
     ]
   },
   "experiment_apis": {
