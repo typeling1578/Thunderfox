@@ -24,5 +24,9 @@ FINAL_TARGET_FILES.features["system-addon@typeling1578"]["experimental-apis"] +=
     "experimental-apis/browserLangSettings.json",
 ]
 
+FINAL_TARGET_FILES.features["system-addon@typeling1578"]["inject"] += [
+    "inject/youtube.js",
+]
+
 with Files("**"):
     BUG_COMPONENT = ("Firefox", "system-addon")
