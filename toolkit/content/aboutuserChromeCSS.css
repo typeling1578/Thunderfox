@@ -1,0 +1,56 @@
+html {
+    --in-content-button-background: rgba(207,207,216,.33);
+    --in-content-button-background-hover: rgba(207,207,216,.66);
+    --in-content-button-background-active: rgb(207,207,216);
+    --in-content-primary-button-background: #0061e0;
+    --in-content-primary-button-background-hover: #0250bb;
+    --in-content-primary-button-background-active: #053e94;
+    --button-border-width: 1px;
+    --border-color: hsla(210,4%,10%,.14);
+}
+
+body {
+    margin-left: 8vw;
+    margin-right: 8vw;
+    font: message-box;
+}
+
+#header {
+    font-weight: 100;
+    font-size: 2rem;
+}
+
+#list {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#userchromecsses {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.userchromecss {
+    display: block;
+    background-color: inherit;
+    padding: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px gray;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.userchromecss > .title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.userchromecss > input {
+    float: right;
+}
+
+#userchromecss-template {
+    display: none;
+}
