@@ -136,27 +136,9 @@ nsresult nsReadConfig::readConfigFile() {
   if (NS_FAILED(rv)) return rv;
 
   constexpr auto channel = nsLiteralCString{MOZ_STRINGIFY(MOZ_UPDATE_CHANNEL)};
-
-  bool sandboxEnabled =
-      channel.EqualsLiteral("beta") || channel.EqualsLiteral("release");
-
+  bool sandboxEnabled = false;
   mozilla::Unused << defaultPrefBranch->GetBoolPref(
       "general.config.sandbox_enabled", &sandboxEnabled);
-
-  rv = defaultPrefBranch->GetCharPref("general.config.filename", lockFileName);
-
-  if (NS_FAILED(rv)) return rv;
-
-  MOZ_LOG(MCD, LogLevel::Debug,
-          ("general.config.filename = %s\n", lockFileName.get()));
-
-  for (size_t index = 0, len = mozilla::ArrayLength(gBlockedConfigs);
-       index < len; ++index) {
-    if (lockFileName == gBlockedConfigs[index]) {
-      // This is NS_OK because we don't want to show an error to the user
-      return rv;
-    }
-  }
 
   // This needs to be read only once.
   //
@@ -171,6 +153,21 @@ nsresult nsReadConfig::readConfigFile() {
     if (NS_FAILED(rv)) return rv;
 
     mRead = true;
+  }
+
+  rv = defaultPrefBranch->GetCharPref("general.config.filename", lockFileName);
+
+  if (NS_FAILED(rv)) return NS_OK;
+
+  MOZ_LOG(MCD, LogLevel::Debug,
+          ("general.config.filename = %s\n", lockFileName.get()));
+
+  for (size_t index = 0, len = mozilla::ArrayLength(gBlockedConfigs);
+       index < len; ++index) {
+    if (lockFileName == gBlockedConfigs[index]) {
+      // This is NS_OK because we don't want to show an error to the user
+      return rv;
+    }
   }
   // If the lockFileName is nullptr return ok, because no lockFile will be used
 
