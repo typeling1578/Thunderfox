@@ -18,6 +18,7 @@ FINAL_LIBRARY = "xul"
 
 FINAL_TARGET_FILES.defaults.autoconfig += [
     "prefcalls.js",
+    "ua_version.js",
     "userchromecss-revision.js",
     "userchromejs.js",
 ]
