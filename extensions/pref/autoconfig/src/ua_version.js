@@ -39,7 +39,7 @@
         return false;
     })
     if (match && match.length > 0) {
-        lockPref("network.http.useragent.version", match[0].version);
+        lockPref("network.http.useragent.version", match[match.length - 1].version);
     } else {
         lockPref("network.http.useragent.version", 102);
     }
