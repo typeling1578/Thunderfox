@@ -14,6 +14,10 @@ const override_sites = [
     {
         "domain": "www.mobile.pasmo.jp",
         "ua": UA_PRESET["chrome"]
+    },
+    {
+        "domain": "business.apple.com",
+        "ua": UA_PRESET["chrome"]
     }
 ]
 
