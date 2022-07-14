@@ -288,7 +288,10 @@ static void GetFirefoxVersionForUserAgent(nsACString& aVersion) {
       mozilla::StaticPrefs::network_http_useragent_forceVersion();
   if (forceVersion == 0) {
     // Use the default Firefox version.
-    aVersion.AssignLiteral(MOZILLA_UAVERSION);
+    uint32_t version =
+      mozilla::StaticPrefs::network_http_useragent_version();
+    aVersion.AppendInt(version);
+    aVersion.AppendLiteral(".0");
   } else {
     // Use the pref's version.
     aVersion.AppendInt(forceVersion);
