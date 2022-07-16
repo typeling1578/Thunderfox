@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "System Addon",
-  "version": "1.3",
+  "version": "1.4",
   "applications": {
     "gecko": {
       "id": "system-addon@typeling1578",
@@ -17,20 +17,11 @@
   "background": {
     "scripts": [
       "background.js",
+      "inject.js",
       "ua_override.js",
       "ua_override_sites.js"
     ]
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://www.youtube.com/*",
-        "*://music.youtube.com/*"
-      ],
-      "js": ["inject/youtube.js"],
-      "run_at": "document_start"
-    }
-  ],
   "experiment_apis": {
     "aboutConfigPrefs": {
       "schema": "experimental-apis/aboutConfigPrefs.json",
