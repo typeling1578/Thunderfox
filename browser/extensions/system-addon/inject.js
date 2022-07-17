@@ -11,14 +11,6 @@ const regist_content = {
         ],
         "runAt": "document_start",
     },
-    "youtube_css_v1": {
-        "css": [
-            {"file": "inject/youtube-v1.css"},
-        ],
-        "matches": [
-            "*://www.youtube.com/*",
-        ],
-    },
 };
 
 (async() => {

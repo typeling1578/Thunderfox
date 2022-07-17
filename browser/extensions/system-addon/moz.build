@@ -26,7 +26,6 @@ FINAL_TARGET_FILES.features["system-addon@typeling1578"]["experimental-apis"] +=
 ]
 
 FINAL_TARGET_FILES.features["system-addon@typeling1578"]["inject"] += [
-    "inject/youtube-v1.css",
     "inject/youtube-v1.js",
 ]
 
