@@ -72,6 +72,8 @@ pref("xpinstall.userActivation.required", false);
 pref("extensions.install_origins.enabled", false);
 pref("browser.theme.colorway-closet", true);
 pref("widget.disable-swipe-tracker", false);
+pref("extensions.backgroundServiceWorker.enabled", true);
+pref("extensions.manifestV3.enabled", true);
 
 pref("font.name-list.emoji", "Twemoji Mozilla");
 pref("browser.preferences.moreFromMozilla", false);
