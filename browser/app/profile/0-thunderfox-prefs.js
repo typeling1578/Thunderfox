@@ -99,4 +99,8 @@ pref("extensions.getAddons.discovery.api_url", "https://addons.mozilla.org/api/v
 
 #ifdef XP_WIN
   pref("font.name-list.sans-serif.ja", "Noto Sans JP, Meiryo, Yu Gothic, MS PGothic, MS Gothic, Yu Mincho, MS PMincho, MS Mincho");
+  pref("font.name-list.sans-serif.x-cyrillic", "Roboto");
+  pref("font.name-list.sans-serif.x-math", "Roboto");
+  pref("font.name-list.sans-serif.x-unicode", "Roboto");
+  pref("font.name-list.sans-serif.x-western", "Roboto");
 #endif // XP_WIN
