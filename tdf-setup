@@ -69,7 +69,6 @@ mozconfig_options_linux = [
     "ac_add_options --disable-crashreporter",
     "ac_add_options --enable-update-channel={channel}",
     'ac_add_options --with-l10n-base="{l10nDir}"',
-    "export MOZ_STUB_INSTALLER=1",
 ]
 mozconfig_options_mac = [ #unable
     "ac_add_options --with-branding=browser/branding/{channel}",
@@ -83,7 +82,6 @@ mozconfig_options_mac = [ #unable
     "ac_add_options --disable-crashreporter",
     "ac_add_options --enable-update-channel={channel}",
     'ac_add_options --with-l10n-base="{l10nDir}"',
-    "export MOZ_STUB_INSTALLER=1",
 ]
 mozconfig_options_mac_cross_aarch64 = [
     "TOOLS=$HOME/mac-crosstool",
@@ -114,7 +112,6 @@ mozconfig_options_mac_cross_aarch64 = [
     "ac_add_options --disable-crashreporter",
     "ac_add_options --enable-update-channel={channel}",
     'ac_add_options --with-l10n-base="{l10nDir}"',
-    "export MOZ_STUB_INSTALLER=1",
 ]
 mozconfig_options_mac_cross_x86_x84 = [
     "TOOLS=$HOME/mac-crosstool",
@@ -145,7 +142,6 @@ mozconfig_options_mac_cross_x86_x84 = [
     "ac_add_options --disable-crashreporter",
     "ac_add_options --enable-update-channel={channel}",
     'ac_add_options --with-l10n-base="{l10nDir}"',
-    "export MOZ_STUB_INSTALLER=1",
 ]
 if(("--enable-mac-aarch64-cross" in sys.argv or "--enable-mac-x86-64-cross" in sys.argv) and (not platform.system() == "Linux")):
     print("Warning: This option is ignored because it is not possible to cross-compile in this environment.")
